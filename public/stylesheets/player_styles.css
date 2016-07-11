@@ -1,0 +1,13 @@
+#player
+{
+	/*set the player cell dimensions*/
+	height: 90px;
+	width: 90px;
+
+	background-color: blue;
+
+	/*ensure the player can move with positioning*/
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}

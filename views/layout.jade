@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/player_styles.css')
+  body
+    block content
+
+  //- Load external CDN scripts
+  script(
+    src='https://code.jquery.com/jquery-3.1.0.min.js'
+    integrity='sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s='
+    crossorigin='anonymous'
+  )
+
+  //- Load local scripts
+  script(src="/socket.io/socket.io.js")
+  script(src='/javascripts/delegator.js')
+  script(src='/javascripts/player.js')
+
+
+  //- Load the document driver last
+  script(src='/javascripts/indexDriver.js')
