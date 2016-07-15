@@ -2,7 +2,7 @@ $(document).ready(function() {
 	/*
 	* All events handled by the global delegator
 	*/
-	delegator = delegator();
+	delegator = delegator()
 
 	//the starting position has to match the css top/right attributes
 	player = new player(0, 0);
