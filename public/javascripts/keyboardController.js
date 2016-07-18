@@ -1,8 +1,8 @@
-keyboardController = {
+var keyboard = {
     /*
     * Handle keydown events
     */
-    this.keydown : function(pressedKey) {
+    keydown : function(pressedKey) {
         switch(pressedKey) {
             case 83: //s
                 $(document).trigger('updateObject', [{'object': 'player', 'action': 'goDown'}]);
@@ -20,11 +20,11 @@ keyboardController = {
                 console.log(pressedKey);
                 break;
         }
-    }
+    },
     /*
     * Hande key up events
     */
-    this.keyup : function(pressedKey) {
+    keyup : function(pressedKey) {
         switch(pressedKey) {
             //s
             case 83:

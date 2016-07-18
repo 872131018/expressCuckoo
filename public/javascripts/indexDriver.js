@@ -1,4 +1,8 @@
 $(document).ready(function() {
+    /*
+    * Instantiate the keyboard controller
+    */
+    //keyboard = keyboardController()
 	/*
 	* All events handled by the global delegator
 	*/
