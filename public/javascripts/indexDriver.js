@@ -2,14 +2,14 @@ $(document).ready(function() {
     /*
     * Instantiate the keyboard controller
     */
-    //keyboard = keyboardController()
+    keyboard = keyboardController()
 	/*
 	* All events handled by the global delegator
 	*/
 	delegator = delegator()
 
 	//the starting position has to match the css top/right attributes
-	player = new player(0, 0);
+	player = new player(0, 0)
 
 	var socket = io('//localhost:3000');
 	socket.on('socketToMe', function (data) {
