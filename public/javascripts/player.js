@@ -78,7 +78,7 @@ function player(passedX, passedY) {
                            $('#player').css('background', 'url("images/linkSpriteSheet.png") 0px -270px');
                             break;
                     }
-                    this.updatePosition({
+                    this.player.updatePosition({
                         'x': this.positionX,
                         'y': this.positionY+player.speed
                     })
@@ -110,7 +110,7 @@ function player(passedX, passedY) {
                            $('#player').css('background', 'url("images/linkSpriteSheet.png") 0px 0px');
                             break;
                     }
-                    this.updatePosition({
+                    this.player.updatePosition({
                         'x': this.positionX-player.speed,
                         'y': this.positionY
                     })
@@ -142,7 +142,7 @@ function player(passedX, passedY) {
                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -360px -90px');
                             break;
                     }
-                    this.updatePosition({
+                    this.player.updatePosition({
                         'x': this.positionX+this.speed,
                         'y': this.positionY
                     })
