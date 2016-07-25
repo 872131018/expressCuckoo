@@ -7,12 +7,25 @@ $(document).ready(function() {
 	* All events handled by the global delegator
 	*/
 	delegator = delegator()
+    /*
+    * Manage objects when they recieve events
+    */
+    manager = objectManager()
 
 	//the starting position has to match the css top/right attributes
 	player = new player(0, 0)
+    /*
+    * Define the socket to the node server
+    */
+	socket = io('//localhost:3000');
+    /*
+    * Start main game loop
+    */
+    setInterval(function() {
+        socket.emit('update', player);
+    }, 200);
 
-	var socket = io('//localhost:3000');
-	socket.on('socketToMe', function (data) {
+	socket.on('update', function (data) {
 		console.log(data);
 	});
 

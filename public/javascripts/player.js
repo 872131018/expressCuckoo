@@ -48,8 +48,8 @@ function player(passedX, passedY) {
                             break;
                     }
                     this.player.updatePosition({
-                        'x': this.positionX,
-                        'y': this.positionY-player.speed
+                        'x': this.player.positionX,
+                        'y': this.player.positionY -this.player.speed
                     })
                 }, this.animationRate)
                 this.isKeyDown = true
@@ -79,8 +79,8 @@ function player(passedX, passedY) {
                             break;
                     }
                     this.player.updatePosition({
-                        'x': this.positionX,
-                        'y': this.positionY+player.speed
+                        'x': this.player.positionX,
+                        'y': this.player.positionY+this.player.speed
                     })
                 }, this.animationRate)
             this.isKeyDown = true;
@@ -111,8 +111,8 @@ function player(passedX, passedY) {
                             break;
                     }
                     this.player.updatePosition({
-                        'x': this.positionX-player.speed,
-                        'y': this.positionY
+                        'x': this.player.positionX-this.player.speed,
+                        'y': this.player.positionY
                     })
                 }, this.animationRate)
                 this.isKeyDown = true
@@ -143,8 +143,8 @@ function player(passedX, passedY) {
                             break;
                     }
                     this.player.updatePosition({
-                        'x': this.positionX+this.speed,
-                        'y': this.positionY
+                        'x': this.player.positionX+this.player.speed,
+                        'y': this.player.positionY
                     })
                 }, this.animationRate )
                 this.isKeyDown = true;
