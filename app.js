@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var socket = require('./routes/socket');
 
 var app = express();
 /*
@@ -15,6 +14,19 @@ var app = express();
 */
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+/*
+* Tell the server to listen for sockets
+*/
+server.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+
+/*
+* Set the socket to listen
+*/
+io.on('update', function(socket){
+  console.log('a user connected'+socket);
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,7 +36,7 @@ app.set('view engine', 'jade');
 * Attach socket to main event loop
 */
 app.use(function(req, res, next){
-  res.io = io;
+  res.io = io; //Not sure if I need this???
   next();
 });
 
@@ -38,7 +50,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/socket', socket);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

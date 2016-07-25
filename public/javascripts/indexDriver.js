@@ -23,7 +23,7 @@ $(document).ready(function() {
     */
     setInterval(function() {
         socket.emit('update', player);
-    }, 200);
+    }, 1000);
 
 	socket.on('update', function (data) {
 		console.log(data);
