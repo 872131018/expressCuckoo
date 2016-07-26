@@ -14,21 +14,45 @@ var app = express();
 */
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
 /*
 * Tell the socket to listen to the server
 */
-io.listen(server)
+io.listen(server);
+/*
+* Pull the server side classes
+*/
+var playerClass = require('./bin/playerClass');
+/*
+* Server variables to hold players and objects
+*/
+var players = [];
+var chickens = [];
 
 /*
 * Set the socket to listen
 */
 io.on('connection', function (socket) {
-  console.log("a user connected");
-  socket.on('update', function (data) {
-    socket.emit('update', data);
-    console.log(data);
-  });
+    /*
+    * When a new player connected broadcast to other players
+    */
+    //console.log("a user connected");
+    players.push(new playerClass(socket.id));
+    socket.broadcast.emit('player_joined', players);
+
+    socket.on('update', function (data) {
+        socket.emit('update', data);
+        //console.log(data);
+    });
+    /*
+    * On disconnect remove from player list
+    */
+    socket.on('disconnect', function(socket) {
+        for(player in players) {
+            if(player.id == socket.id) {
+                players.splice(player, 1);
+            }
+        }
+    });
   //socket.emit('update', { hello: 'world' });
 });
 

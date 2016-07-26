@@ -1,4 +1,4 @@
-function player(passedX, passedY) {
+function playerClass(passedX, passedY) {
     /*
     * Place player on screen when created
     */
@@ -49,7 +49,7 @@ function player(passedX, passedY) {
                     }
                     this.player.updatePosition({
                         'x': this.player.positionX,
-                        'y': this.player.positionY -this.player.speed
+                        'y': this.player.positionY-this.player.speed
                     })
                 }, this.animationRate)
                 this.isKeyDown = true
