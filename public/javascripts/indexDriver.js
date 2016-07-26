@@ -1,32 +1,32 @@
 $(document).ready(function() {
-    /*
-    * Instantiate the keyboard controller
-    */
-    keyboard = keyboardController()
+  /*
+  * Instantiate the keyboard controller
+  */
+  keyboard = keyboardController()
 	/*
 	* All events handled by the global delegator
 	*/
 	delegator = delegator()
-    /*
-    * Manage objects when they recieve events
-    */
-    manager = objectManager()
+  /*
+  * Manage objects when they recieve events
+  */
+  manager = objectManager()
 
 	//the starting position has to match the css top/right attributes
 	player = new player(0, 0)
-    /*
-    * Define the socket to the node server
-    */
-	socket = io('//localhost:3000');
-    /*
-    * Start main game loop
-    */
-    setInterval(function() {
-        socket.emit('update', player);
-    }, 1000);
+  /*
+  * Define the socket to the node server
+  */
+	socket = io('http://localhost:3000');
+  /*
+  * Start main game loop
+  */
+  loop_id = loop()
+  loop_id.start()
 
 	socket.on('update', function (data) {
 		console.log(data);
+    $(document).trigger('updateObject', [{'object': 'player', 'action': 'updatePosition'}]);
 	});
 
 

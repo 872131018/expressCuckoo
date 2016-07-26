@@ -7,7 +7,7 @@ function delegator() {
 	  var pressedKey = event.which
       keyboard.keyup(pressedKey)
     });
-    $(document).on('updateObject', function(e, dataObject) {
+    $(document).on('updateObject', function(event, dataObject) {
         manager.update(dataObject)
         collision.checkCollision('player', 'chicken');
     });

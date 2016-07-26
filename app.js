@@ -14,18 +14,22 @@ var app = express();
 */
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+
 /*
-* Tell the server to listen for sockets
+* Tell the socket to listen to the server
 */
-server.listen(3000, function(){
-  console.log('listening on *:3000');
-});
+io.listen(server)
 
 /*
 * Set the socket to listen
 */
-io.on('update', function(socket){
-  console.log('a user connected'+socket);
+io.on('connection', function (socket) {
+  console.log("a user connected");
+  socket.on('update', function (data) {
+    socket.emit('update', data);
+    console.log(data);
+  });
+  //socket.emit('update', { hello: 'world' });
 });
 
 // view engine setup
