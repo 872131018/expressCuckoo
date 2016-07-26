@@ -32,15 +32,16 @@ var chickens = [];
 * Set the socket to listen
 */
 io.on('connection', function (socket) {
+    //console.log("a user connected");
     /*
     * When a new player connected broadcast to other players
     */
-    //console.log("a user connected");
-    players.push(new playerClass(socket.id));
-    socket.broadcast.emit('player_joined', players);
+    var person = new playerClass(socket.id, 0, 0);
+    players.push(person);
+    socket.broadcast.emit('add_person', player);
 
     socket.on('update', function (data) {
-        socket.emit('update', data);
+        socket.broadcast.emit('update', data);
         //console.log(data);
     });
     /*

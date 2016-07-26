@@ -11,13 +11,17 @@ delegator = delegator()
 * Manage objects when they recieve events
 */
 manager = objectManager()
-
-//the starting position has to match the css top/right attributes
-player = new playerClass(0, 0)
+/*
+* Other players live in here
+*/
+people = [];
 /*
 * Define the socket to the node server
 */
 socket = io('http://localhost:3000');
+
+//the starting position has to match the css top/right attributes
+player = new playerClass(0, 0, socket.id)
 /*
 * Start main game loop
 */
@@ -27,8 +31,9 @@ loop_id = loop()
 socket.on('update', function (data) {
     $(document).trigger('updateObject', [{'object': 'player', 'action': 'updatePosition'}]);
 })
-socket.on('player_joined', function(data) {
-    console.log(data)
+socket.on('add_person', function(data) {
+    var person = new personClass(data.x, data.y, data.id)
+    people.push(person)
 })
 
 /*

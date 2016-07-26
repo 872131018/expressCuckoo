@@ -1,8 +1,9 @@
-function playerClass(x, y, id) {
+function personClass(x, y, id) {
     /*
-    * Place player on screen when created
+    * Place new person on screen when created
     */
-    $('#player').css('background', 'url("images/linkSpriteSheet.png") 0px 0px');
+    $('body').append("<img src=\"/images/000.png\" id=\""+id+"\">")
+    $('#'+id).css('background', 'url("images/linkSpriteSheet.png") 0px 0px');
     return {
         /*
         * Player state

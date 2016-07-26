@@ -15,7 +15,7 @@ function keyboardController() {
                     $(document).trigger('updateObject', [{'object': 'player', 'action': 'goRight'}]);
                     break;
                 default: // all other keys
-                    console.log(pressedKey);
+                    //console.log(pressedKey);
                     break;
             }
         },
@@ -38,7 +38,7 @@ function keyboardController() {
                     $(document).trigger('updateObject', [{'object': 'player', 'action': 'stopRight'}]);
                     break;
                 default:
-                    console.log(pressedKey);
+                    //console.log(pressedKey);
                     break;
             }
         }
