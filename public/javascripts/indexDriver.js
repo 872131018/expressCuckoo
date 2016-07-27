@@ -32,7 +32,10 @@ socket.on('update', function (data) {
     $(document).trigger('updateObject', [{'object': 'player', 'action': 'updatePosition'}]);
 })
 socket.on('add_person', function(data) {
-    var person = new personClass(data.x, data.y, data.id)
+    /*
+    * Socket has some extra chars at front that break jquery
+    */
+    var person = new personClass(data.x, data.y, data.id.substr(2))
     people.push(person)
 })
 

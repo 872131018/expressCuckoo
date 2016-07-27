@@ -2,6 +2,7 @@ function playerClass(x, y, id) {
     /*
     * Place player on screen when created
     */
+    $('body').append("<img src=\"/images/000.png\" id=\"player\" class=\"player\">")
     $('#player').css('background', 'url("images/linkSpriteSheet.png") 0px 0px');
     return {
         /*

@@ -38,7 +38,7 @@ io.on('connection', function (socket) {
     */
     var person = new playerClass(socket.id, 0, 0);
     players.push(person);
-    socket.broadcast.emit('add_person', player);
+    socket.broadcast.emit('add_person', person);
 
     socket.on('update', function (data) {
         socket.broadcast.emit('update', data);

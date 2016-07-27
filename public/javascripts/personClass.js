@@ -2,7 +2,7 @@ function personClass(x, y, id) {
     /*
     * Place new person on screen when created
     */
-    $('body').append("<img src=\"/images/000.png\" id=\""+id+"\">")
+    $('body').append("<img src=\"/images/000.png\" id=\""+id+"\" class=\"player\">")
     $('#'+id).css('background', 'url("images/linkSpriteSheet.png") 0px 0px');
     return {
         /*
