@@ -1,13 +1,20 @@
 var chickenClass = function(x, y) {
-    //stuff related to object state
-    this.speed : 8,
-    this.animationRate : 100,
-    this.x : x,
-    this.y : y,
-    //track the current move
-    this.currentMove : 'down',
-    //functions for the chicken
-    this.randomMove : function randomMove() {
+    /*
+    * Chickens need to have unique ID
+    */
+    this.id = new Date().getTime();
+    /*
+    * Chicken state stuff
+    */
+    this.speed = 8;
+    this.animationRate = 100;
+    this.x = x;
+    this.y = y;
+    /*
+    * Store the chickens current action
+    */
+    this.currentMove = 'down';
+    this.randomMove = function randomMove() {
         /*
         * Pick a random way to go
         */
@@ -42,9 +49,10 @@ var chickenClass = function(x, y) {
                 break;
         }
 
-    },
-    this.updatePosition : function(position) {
+    };
+    this.updatePosition = function(position) {
         this.x = position.x;
         this.y = position.y;
-    }
+    };
 }
+module.exports = chickenClass;

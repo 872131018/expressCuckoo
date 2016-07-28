@@ -22,17 +22,29 @@ io.listen(server);
 * Pull the server side classes
 */
 var playerClass = require('./bin/playerClass');
+var chickenClass = require('./bin/chickenClass');
 /*
 * Server variables to hold players and objects
 */
 var players = [];
 var chickens = [];
+/*
+* Build out the chickens in the beginning
+*/
+for(i = 0; i < 10; i++) {
+    var chicken = new chickenClass(i*20, i*20)
+    chickens.push(chicken)
+}
 
 /*
-* Set the socket to listen
+* Set update the socket data when a person connects
 */
 io.on('connection', function (socket) {
     //console.log("a user connected");
+    /*
+    * When a player connects show send them the chicken states
+    */
+    socket.emit('chickens', chickens);
     /*
     * When a new player connected broadcast to other players
     */

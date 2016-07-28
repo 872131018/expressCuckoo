@@ -38,6 +38,12 @@ socket.on('add_person', function(data) {
     var person = new personClass(data.x, data.y, data.id.substr(2))
     people.push(person)
 })
+socket.on('chickens', function(data) {
+    for(chicken in data) {
+
+    }
+    console.log(data)
+})
 
 /*
 chicken = new chickenClass(100, 100);
