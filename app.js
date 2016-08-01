@@ -42,16 +42,16 @@ for(i = 0; i < 10; i++) {
 io.on('connection', function (socket) {
     //console.log("a user connected");
     /*
-    * When a player connects show send them the chicken states
-    */
-    socket.emit('chickens', chickens);
-    /*
     * When a new player connected broadcast to other players
     */
     var person = new playerClass(socket.id, 0, 0);
     players.push(person);
     socket.broadcast.emit('add_person', person);
-
+    /*
+    * When a player connects show send them the chickens!
+    */
+    socket.emit('init_chickens', chickens);
+    /*
     socket.on('update', function (data) {
         socket.broadcast.emit('update', data);
         //console.log(data);
@@ -68,7 +68,19 @@ io.on('connection', function (socket) {
     });
   //socket.emit('update', { hello: 'world' });
 });
-
+/*
+* Init the main loop for chicken behavior
+*/
+var interval = setInterval(function () {
+    for(chicken in chickens) {
+        chicken = chickens[chicken];
+        chicken.randomMove();
+    }
+    /*
+    * emit the chicken updates
+    */
+    io.sockets.emit('chickens_update', chickens);
+}, 1000);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

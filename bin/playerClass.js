@@ -1,3 +1,6 @@
+/*
+* the player class
+*/
 var playerClass = function(id, x, y) {
 	this.id = id;
     this.x = x;

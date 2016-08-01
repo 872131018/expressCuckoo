@@ -16,6 +16,10 @@ manager = objectManager()
 */
 people = [];
 /*
+* Store the chickens locally
+*/
+chickens = {};
+/*
 * Define the socket to the node server
 */
 socket = io('http://localhost:3000');
@@ -38,11 +42,17 @@ socket.on('add_person', function(data) {
     var person = new personClass(data.x, data.y, data.id.substr(2))
     people.push(person)
 })
-socket.on('chickens', function(data) {
+socket.on('init_chickens', function(data) {
     for(chicken in data) {
-
+        var chicken = new chickenClass(data[chicken])
+        chickens[chicken.id] = chicken
     }
-    console.log(data)
+})
+socket.on('chickens_update', function(data) {
+    for(chicken in data) {
+        chicken = data[chicken]
+        chickens[chicken.id].update(chicken)
+    }
 })
 
 /*

@@ -1,8 +1,15 @@
+/*
+* Include package for generating unique ids
+*/
+var uuid = require('node-uuid');
+/*
+* The chicken class
+*/
 var chickenClass = function(x, y) {
     /*
     * Chickens need to have unique ID
     */
-    this.id = new Date().getTime();
+    this.id = uuid.v4();
     /*
     * Chicken state stuff
     */
