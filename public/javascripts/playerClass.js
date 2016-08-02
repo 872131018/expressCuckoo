@@ -28,6 +28,10 @@ function playerClass(x, y, id) {
             this.positionY = positionObject['y']
             $('#player').css('left', this.positionX+'px')
             $('#player').css('top', this.positionY+'px')
+            /*
+            * Send the update down the pipe
+            */
+            socket.emit('position_update', this)
         },
         goUp : function() {
             if(this.isKeyDown == false) {

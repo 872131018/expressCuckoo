@@ -26,7 +26,7 @@ var chickenClass = require('./bin/chickenClass');
 /*
 * Server variables to hold players and objects
 */
-var players = [];
+var people = [];
 var chickens = [];
 /*
 * Build out the chickens in the beginning
@@ -40,13 +40,22 @@ for(i = 0; i < 10; i++) {
 * Set update the socket data when a person connects
 */
 io.on('connection', function (socket) {
-    //console.log("a user connected");
     /*
-    * When a new player connected broadcast to other players
+    * When a new player connects send back the registered player
     */
+    //the starting position has to match the css top/right attributes
     var person = new playerClass(socket.id, 0, 0);
-    players.push(person);
-    socket.broadcast.emit('add_person', person);
+    people.push(person);
+    socket.emit('connection', {
+        person : person,
+        people : people
+    });
+    /*
+    * Player position update
+    */
+    socket.on('position_update', function(data) {
+        socket.broadcast.emit('position_update', data);
+    });
     /*
     * When a player connects show send them the chickens!
     */
@@ -60,9 +69,9 @@ io.on('connection', function (socket) {
     * On disconnect remove from player list
     */
     socket.on('disconnect', function(socket) {
-        for(player in players) {
+        for(player in people) {
             if(player.id == socket.id) {
-                players.splice(player, 1);
+                people.splice(player, 1);
             }
         }
     });
@@ -81,7 +90,9 @@ var interval = setInterval(function () {
     */
     io.sockets.emit('chickens_update', chickens);
 }, 1000);
-// view engine setup
+/*
+* Set up the template engine
+*/
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
