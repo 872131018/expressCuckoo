@@ -46,10 +46,12 @@ io.on('connection', function (socket) {
     //the starting position has to match the css top/right attributes
     var person = new playerClass(socket.id, 0, 0);
     people.push(person);
-    socket.emit('connection', {
-        person : person,
-        people : people
+    socket.emit('connected', {
+        x : person.x,
+        y : person.y,
+        id : person.id
     });
+    update_players();
     /*
     * Player position update
     */
@@ -77,6 +79,14 @@ io.on('connection', function (socket) {
     });
   //socket.emit('update', { hello: 'world' });
 });
+/*
+* Update all the players in the game
+*/
+function update_players() {
+    io.sockets.emit('connections', {
+        people : people
+    });
+}
 /*
 * Init the main loop for chicken behavior
 */

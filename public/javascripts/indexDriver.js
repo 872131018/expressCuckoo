@@ -26,24 +26,29 @@ socket = io('http://localhost:3000');
 /*
 * When you join register with the server
 */
-socket.on('connection', function(data) {
-    var person = data.person
-    var others = data.people
+socket.on('connected', function(data) {
     /*
     * Socket has some extra chars at front that break jquery
     */
-    person.id = person.id.substr(2)
-    player = new playerClass(person.x, person.y, person.id)
+    player = new playerClass(data.x, data.y, data.id.substr(2))
+})
+/*
+* When register other players when someone else joins
+*/
+socket.on('connections', function(data) {
+    var others = data.people
     /*
     * Init the other players in the game
     */
     for(other in others) {
         var other = others[other]
         other.id = other.id.substr(2)
+        console.log(people[other.id])
         people[other.id] = new personClass(other.x, other.y, other.id)
     }
 })
 socket.on('position_update', function(data) {
+    console.log(data)
     people[data.id].updatePosition({
         x : data.x,
         y : data.y
