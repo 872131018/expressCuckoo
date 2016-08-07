@@ -30,7 +30,7 @@ socket.on('connected', function(data) {
     /*
     * Socket has some extra chars at front that break jquery
     */
-    player = new playerClass(data.x, data.y, data.id.substr(2))
+    player = new playerClass(data.x, data.y, data.id)
 })
 /*
 * When register other players when someone else joins
@@ -42,14 +42,19 @@ socket.on('connections', function(data) {
     */
     for(other in others) {
         var other = others[other]
-        other.id = other.id.substr(2)
-        console.log(people[other.id])
-        people[other.id] = new personClass(other.x, other.y, other.id)
+        /*
+        * Skip self in list to prevent duplicates
+        */
+        if(other.id == player.id) {
+            continue;
+        }
+        people[other.id] = new playerClass(other.x, other.y, other.id)
     }
 })
-socket.on('position_update', function(data) {
+socket.on('update_position', function(data) {
     console.log(data)
-    people[data.id].updatePosition({
+    console.log(people[data.id])
+    people[data.id].update_position({
         x : data.x,
         y : data.y
     })

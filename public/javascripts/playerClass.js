@@ -2,20 +2,20 @@ function playerClass(x, y, id) {
     /*
     * Place player on screen when created
     */
-    $('body').append("<img src=\"/images/000.png\" id=\"player\" class=\"player\">")
-    $('#player').css('background', 'url("images/linkSpriteSheet.png") 0px 0px');
+    $('body').append("<img src=\"/images/000.png\" id=\""+id+"\" class=\"player\">")
+    $('#'+id).css('background', 'url("images/linkSpriteSheet.png") 0px 0px');
     return {
         /*
         * Player state
         */
         speed : 12,
         animationRate : 100,
-        positionX : x,
-        positionY : y,
+        x : x,
+        y : y,
         /*
         * Need to track ID for other players
         */
-        id: id,
+        id : id,
         /*
         * Used for stopping key repeat events
         */
@@ -23,42 +23,49 @@ function playerClass(x, y, id) {
         /*
         * Player functions
         */
-        updatePosition : function(positionObject) {
-            this.positionX = positionObject['x']
-            this.positionY = positionObject['y']
-            $('#player').css('left', this.positionX+'px')
-            $('#player').css('top', this.positionY+'px')
+        move : function(move_object) {
+            console.log()
+            this.x = move_object.x
+            this.y = move_object.y
+            $('#'+id).css('left', move_object.x+'px')
+            $('#'+id).css('top', move_object.y+'px')
             /*
             * Send the update down the pipe
             */
-            socket.emit('position_update', this)
+            socket.emit('update_position', this)
+        },
+        update_position : function(positionObject) {
+            this.x = positionObject['x']
+            this.y = positionObject['y']
+            $('#'+id).css('left', this.x+'px')
+            $('#'+id).css('top', this.y+'px')
         },
         goUp : function() {
             if(this.isKeyDown == false) {
                 this.intervalId = setInterval(function() {
-                    var backgroundArray= $('#player').css('background').split(' ')
+                    var backgroundArray= $('#'+id).css('background').split(' ')
                     var currentFrameX = backgroundArray[7]
                     var currentFrameY = backgroundArray[8]
                     switch(currentFrameX) {
                         case '0px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -90px -180px')
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -90px -180px')
                             break;
                         case '-90px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -180px -180px')
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -180px -180px')
                             break;
                         case '-180px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -270px -180px')
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -270px -180px')
                             break;
                         case '-270px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -360px -180px')
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -360px -180px')
                             break;
                         default:
-                           $('#player').css('background', 'url("images/linkSpriteSheet.png") 0px -180px')
+                           $('#'+id).css('background', 'url("images/linkSpriteSheet.png") 0px -180px')
                             break;
                     }
-                    this.player.updatePosition({
-                        'x': this.player.positionX,
-                        'y': this.player.positionY-this.player.speed
+                    this.player.move({
+                        'x': this.player.x,
+                        'y': this.player.y-this.player.speed
                     })
                 }, this.animationRate)
                 this.isKeyDown = true
@@ -67,29 +74,29 @@ function playerClass(x, y, id) {
         goDown : function() {
             if(this.isKeyDown == false) {
                 this.intervalId = setInterval(function() {
-                    var backgroundArray= $('#player').css('background').split(' ');
+                    var backgroundArray= $('#'+id).css('background').split(' ');
                     var currentFrameX = backgroundArray[7];
                     var currentFrameY = backgroundArray[8];
                     switch(currentFrameX) {
                         case '0px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -90px -270px');
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -90px -270px');
                             break;
                         case '-90px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -180px -270px');
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -180px -270px');
                             break;
                         case '-180px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -270px -270px');
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -270px -270px');
                             break;
                         case '-270px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -360px -270px');
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -360px -270px');
                             break;
                         default:
-                           $('#player').css('background', 'url("images/linkSpriteSheet.png") 0px -270px');
+                           $('#'+id).css('background', 'url("images/linkSpriteSheet.png") 0px -270px');
                             break;
                     }
-                    this.player.updatePosition({
-                        'x': this.player.positionX,
-                        'y': this.player.positionY+this.player.speed
+                    this.player.move({
+                        'x': this.player.x,
+                        'y': this.player.y+this.player.speed
                     })
                 }, this.animationRate)
             this.isKeyDown = true;
@@ -98,30 +105,30 @@ function playerClass(x, y, id) {
         goLeft : function goLeft() {
             if(this.isKeyDown == false) {
                 this.intervalId = setInterval(function() {
-                    var backgroundArray= $('#player').css('background').split(' ');
+                    var backgroundArray= $('#'+id).css('background').split(' ');
                     var currentFrameX = backgroundArray[7];
                     var currentFrameY = backgroundArray[8];
                     switch(currentFrameX)
                     {
                         case '0px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -90px 0px');
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -90px 0px');
                             break;
                         case '-90px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -180px 0px');
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -180px 0px');
                             break;
                         case '-180px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -270px 0px');
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -270px 0px');
                             break;
                         case '-270px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -360px 0px');
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -360px 0px');
                             break;
                         default:
-                           $('#player').css('background', 'url("images/linkSpriteSheet.png") 0px 0px');
+                           $('#'+id).css('background', 'url("images/linkSpriteSheet.png") 0px 0px');
                             break;
                     }
-                    this.player.updatePosition({
-                        'x': this.player.positionX-this.player.speed,
-                        'y': this.player.positionY
+                    this.player.move({
+                        'x': this.player.x-this.player.speed,
+                        'y': this.player.y
                     })
                 }, this.animationRate)
                 this.isKeyDown = true
@@ -130,30 +137,30 @@ function playerClass(x, y, id) {
         goRight : function() {
             if(this.isKeyDown == false) {
                 this.intervalId = setInterval(function() {
-                    var backgroundArray= $('#player').css('background').split(' ');
+                    var backgroundArray= $('#'+id).css('background').split(' ');
                     var currentFrameX = backgroundArray[7];
                     var currentFrameY = backgroundArray[8];
                     switch(currentFrameX)
                     {
                         case '-360px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") 0px -90px');
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") 0px -90px');
                             break;
                         case '0px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -90px -90px');
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -90px -90px');
                             break;
                         case '-90px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -180px -90px');
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -180px -90px');
                             break;
                         case '-180px':
-                            $('#player').css('background', 'url("images/linkSpriteSheet.png") -270px -90px');
+                            $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -270px -90px');
                             break;
                         default:
-                           $('#player').css('background', 'url("images/linkSpriteSheet.png") -360px -90px');
+                           $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -360px -90px');
                             break;
                     }
-                    this.player.updatePosition({
-                        'x': this.player.positionX+this.player.speed,
-                        'y': this.player.positionY
+                    this.player.move({
+                        'x': this.player.x+this.player.speed,
+                        'y': this.player.y
                     })
                 }, this.animationRate )
                 this.isKeyDown = true;
@@ -162,28 +169,28 @@ function playerClass(x, y, id) {
         stopUp : function() {
             if(this.isKeyDown == true) {
                 clearInterval(this.intervalId);
-                $('#player').css('background', 'url("images/linkSpriteSheet.png") 0px -180px');
+                $('#'+id).css('background', 'url("images/linkSpriteSheet.png") 0px -180px');
                 this.isKeyDown = false;
             }
         },
         stopDown : function() {
             if(this.isKeyDown == true) {
                 clearInterval(this.intervalId);
-                $('#player').css('background', 'url("images/linkSpriteSheet.png") 0px -270px');
+                $('#'+id).css('background', 'url("images/linkSpriteSheet.png") 0px -270px');
                 this.isKeyDown = false;
             }
         },
         stopLeft : function() {
             if(this.isKeyDown == true) {
                 clearInterval(this.intervalId);
-                $('#player').css('background', 'url("images/linkSpriteSheet.png") 0px 0px');
+                $('#'+id).css('background', 'url("images/linkSpriteSheet.png") 0px 0px');
                 this.isKeyDown = false;
             }
         },
         stopRight : function() {
             if(this.isKeyDown == true) {
                 clearInterval(this.intervalId);
-                $('#player').css('background', 'url("images/linkSpriteSheet.png") -360px -90px');
+                $('#'+id).css('background', 'url("images/linkSpriteSheet.png") -360px -90px');
                 this.isKeyDown = false;
             }
         }

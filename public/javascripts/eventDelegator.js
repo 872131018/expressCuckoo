@@ -7,8 +7,12 @@ function delegator() {
 	  var pressedKey = event.which
       keyboard.keyup(pressedKey)
     });
+    $(document).on('move', function(event, action_object) {
+        manager.update(event, action_object)
+        //collision.checkCollision('player', 'chicken');
+    });
     $(document).on('updateObject', function(event, dataObject) {
         manager.update(dataObject)
-        collision.checkCollision('player', 'chicken');
+        //collision.checkCollision('player', 'chicken');
     });
 }

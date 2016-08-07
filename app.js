@@ -26,12 +26,13 @@ var chickenClass = require('./bin/chickenClass');
 /*
 * Server variables to hold players and objects
 */
+var player_count = 0;
 var people = [];
 var chickens = [];
 /*
 * Build out the chickens in the beginning
 */
-for(i = 0; i < 10; i++) {
+for(i = 0; i < 1; i++) {
     var chicken = new chickenClass(i*20, i*20)
     chickens.push(chicken)
 }
@@ -44,8 +45,12 @@ io.on('connection', function (socket) {
     * When a new player connects send back the registered player
     */
     //the starting position has to match the css top/right attributes
-    var person = new playerClass(socket.id, 0, 0);
+    var person = new playerClass(player_count, 0, 0);
     people.push(person);
+    player_count++;
+    /*
+    * Send back player information
+    */
     socket.emit('connected', {
         x : person.x,
         y : person.y,
@@ -55,8 +60,8 @@ io.on('connection', function (socket) {
     /*
     * Player position update
     */
-    socket.on('position_update', function(data) {
-        socket.broadcast.emit('position_update', data);
+    socket.on('update_position', function(data) {
+        socket.broadcast.emit('update_position', data);
     });
     /*
     * When a player connects show send them the chickens!
