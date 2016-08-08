@@ -52,12 +52,30 @@ socket.on('connections', function(data) {
     }
 })
 socket.on('update_position', function(data) {
-    console.log(data)
-    console.log(people[data.id])
     people[data.id].update_position({
         x : data.x,
         y : data.y
     })
+})
+socket.on('disconnect', function(data) {
+    for(player in people) {
+        if(player.id == data.id) {
+            people.splice(player, 1);
+            break;
+        }
+    }
+})
+socket.on('chickens', function(data) {
+    for(chicken in data) {
+        var chicken = new chickenClass(data[chicken])
+        chickens[chicken.id] = chicken
+    }
+})
+socket.on('update_chickens', function(data) {
+    for(chicken in data) {
+        chicken = data[chicken]
+        chickens[chicken.id].update(chicken)
+    }
 })
 /*
 * Start main game loop
@@ -65,29 +83,6 @@ socket.on('update_position', function(data) {
 //loop_id = loop()
 //loop_id.start()
 
-socket.on('update', function (data) {
-    $(document).trigger('updateObject', [{'object': 'player', 'action': 'updatePosition'}]);
-})
-socket.on('add_person', function(data) {
-    /*
-    * Socket has some extra chars at front that break jquery
-    */
-    data.id = data.id.substr(2)
-    var person = new personClass(data.x, data.y, data.id)
-    people.push(person)
-})
-socket.on('init_chickens', function(data) {
-    for(chicken in data) {
-        var chicken = new chickenClass(data[chicken])
-        chickens[chicken.id] = chicken
-    }
-})
-socket.on('chickens_update', function(data) {
-    for(chicken in data) {
-        chicken = data[chicken]
-        chickens[chicken.id].update(chicken)
-    }
-})
 /*
 chicken = new chickenClass(100, 100);
 collision = new collisionDetect();

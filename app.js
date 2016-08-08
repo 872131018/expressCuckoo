@@ -32,7 +32,7 @@ var chickens = [];
 /*
 * Build out the chickens in the beginning
 */
-for(i = 0; i < 1; i++) {
+for(i = 0; i < 10; i++) {
     var chicken = new chickenClass(i*20, i*20)
     chickens.push(chicken)
 }
@@ -56,7 +56,13 @@ io.on('connection', function (socket) {
         y : person.y,
         id : person.id
     });
-    update_players();
+    socket.broadcast.emit('connections', {
+        people : people
+    });
+    /*
+    * When a player connects show send them the chickens!
+    */
+    socket.emit('chickens', chickens);
     /*
     * Player position update
     */
@@ -64,34 +70,24 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('update_position', data);
     });
     /*
-    * When a player connects show send them the chickens!
-    */
-    socket.emit('init_chickens', chickens);
-    /*
-    socket.on('update', function (data) {
-        socket.broadcast.emit('update', data);
-        //console.log(data);
-    });
-    /*
     * On disconnect remove from player list
     */
-    socket.on('disconnect', function(socket) {
+    socket.on('disconnect', function(data) {
         for(player in people) {
             if(player.id == socket.id) {
                 people.splice(player, 1);
+                /*
+                * Remove player from other screens
+                */
+                socket.broadcast.emit('disconnect', {
+                    id : player.id
+                });
+                break;
             }
         }
     });
   //socket.emit('update', { hello: 'world' });
 });
-/*
-* Update all the players in the game
-*/
-function update_players() {
-    io.sockets.emit('connections', {
-        people : people
-    });
-}
 /*
 * Init the main loop for chicken behavior
 */
@@ -103,7 +99,7 @@ var interval = setInterval(function () {
     /*
     * emit the chicken updates
     */
-    io.sockets.emit('chickens_update', chickens);
+    io.sockets.emit('update_chickens', chickens);
 }, 1000);
 /*
 * Set up the template engine
