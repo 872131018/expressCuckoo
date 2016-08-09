@@ -4,6 +4,8 @@ function playerClass(x, y, id) {
     */
     $('body').append("<img src=\"/images/000.png\" id=\""+id+"\" class=\"player\">")
     $('#'+id).css('background', 'url("images/linkSpriteSheet.png") 0px 0px');
+    $('#'+id).css('left', x+'px')
+    $('#'+id).css('top', y+'px')
     return {
         /*
         * Player state
@@ -24,7 +26,6 @@ function playerClass(x, y, id) {
         * Player functions
         */
         move : function(move_object) {
-            console.log()
             this.x = move_object.x
             this.y = move_object.y
             $('#'+id).css('left', move_object.x+'px')
