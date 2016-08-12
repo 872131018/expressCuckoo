@@ -31,6 +31,21 @@ socket.on('connected', function(data) {
     * Socket has some extra chars at front that break jquery
     */
     player = new playerClass(data.x, data.y, data.id)
+    /*
+    * When a player connects show other players in game
+    */
+    var others = data.people
+    for(other in others) {
+        var other = others[other]
+        console.log(other)
+        /*
+        * Skip self in list to prevent duplicates
+        */
+        if(other.id == player.id) {
+            continue;
+        }
+        people[other.id] = new playerClass(other.x, other.y, other.id)
+    }
 })
 /*
 * When register other players when someone else joins

@@ -54,7 +54,8 @@ io.on('connection', function (socket) {
     socket.emit('connected', {
         x : person.x,
         y : person.y,
-        id : person.id
+        id : person.id,
+        people : people
     });
     socket.broadcast.emit('connections', {
         people : people
@@ -67,6 +68,18 @@ io.on('connection', function (socket) {
     * Player position update
     */
     socket.on('update_position', function(data) {
+        /*
+        * Retrieve player from list
+        */
+        player = people[data.id];
+        /*
+        * Updates the player
+        */
+        player.x = data.x;
+        player.y = data.y;
+        /*
+        * Push updates to other players
+        */
         socket.broadcast.emit('update_position', data);
     });
     /*
