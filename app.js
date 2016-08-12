@@ -32,7 +32,7 @@ var chickens = [];
 /*
 * Build out the chickens in the beginning
 */
-for(i = 0; i < 10; i++) {
+for(i = 0; i < 1; i++) {
     var chicken = new chickenClass(i*20, i*20)
     chickens.push(chicken)
 }
@@ -75,11 +75,12 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function(data) {
         for(player in people) {
             if(player.id == socket.id) {
+                console.log(player)
                 people.splice(player, 1);
                 /*
                 * Remove player from other screens
                 */
-                socket.broadcast.emit('disconnect', {
+                socket.broadcast.emit('disconnected', {
                     id : player.id
                 });
                 break;

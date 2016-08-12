@@ -57,10 +57,17 @@ socket.on('update_position', function(data) {
         y : data.y
     })
 })
-socket.on('disconnect', function(data) {
+socket.on('disconnected', function(data) {
     for(player in people) {
         if(player.id == data.id) {
+            /*
+            * Remove player from list of players
+            */
             people.splice(player, 1);
+            /*
+            * Remove player from screen
+            */
+            $('#'+data.id).remove()
             break;
         }
     }
