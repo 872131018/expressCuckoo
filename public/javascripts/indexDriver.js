@@ -37,7 +37,6 @@ socket.on('connected', function(data) {
     var others = data.people
     for(other in others) {
         var other = others[other]
-        console.log(other)
         /*
         * Skip self in list to prevent duplicates
         */
