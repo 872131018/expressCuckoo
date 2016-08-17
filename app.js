@@ -32,7 +32,7 @@ var chickens = [];
 /*
 * Build out the chickens in the beginning
 */
-for(i = 0; i < 1; i++) {
+for(i = 0; i < 10; i++) {
     var chicken = new chickenClass(i*20, i*20)
     chickens.push(chicken)
 }
