@@ -45,7 +45,7 @@ io.on('connection', function (socket) {
     * When a new player connects send back the registered player
     */
     //the starting position has to match the css top/right attributes
-    var person = new playerClass(player_count, 0, 0);
+    var person = new playerClass(player_count, socket.id, 0, 0);
     people.push(person);
     player_count++;
     /*
@@ -57,8 +57,8 @@ io.on('connection', function (socket) {
         id : person.id,
         people : people
     });
-    socket.broadcast.emit('connections', {
-        people : people
+    socket.broadcast.emit('new_connection', {
+        person : person
     });
     /*
     * When a player connects show send them the chickens!
@@ -87,15 +87,17 @@ io.on('connection', function (socket) {
     */
     socket.on('disconnect', function(data) {
         for(player in people) {
-            if(player.id == socket.id) {
-                console.log(player)
-                people.splice(player, 1);
+            if(people[player].socket_id == socket.id) {
                 /*
                 * Remove player from other screens
                 */
                 socket.broadcast.emit('disconnected', {
-                    id : player.id
+                    id : people[player].id
                 });
+                /*
+                * Remove player from central game
+                */
+                people.splice(player, 1);
                 break;
             }
         }
