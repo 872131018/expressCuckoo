@@ -2,7 +2,7 @@ $(document).ready(function() {
 /*
 * Instantiate the keyboard controller
 */
-keyboard = keyboardController()
+keyboard = new Keyboard()
 /*
 * All events handled by the global delegator
 */

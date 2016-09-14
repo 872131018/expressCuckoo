@@ -21,8 +21,8 @@ io.listen(server);
 /*
 * Pull the server side classes
 */
-var playerClass = require('./bin/playerClass');
-var chickenClass = require('./bin/chickenClass');
+var Player = require('./bin/Player');
+var Chicken = require('./bin/Chicken');
 /*
 * Server variables to hold players and objects
 */
@@ -33,7 +33,7 @@ var chickens = [];
 * Build out the chickens in the beginning
 */
 for(i = 0; i < 1; i++) {
-    var chicken = new chickenClass(i*20, i*20)
+    var chicken = new Chicken(i*20, i*20)
     chickens.push(chicken)
 }
 
@@ -45,7 +45,7 @@ io.on('connection', function (socket) {
     * When a new player connects send back the registered player
     */
     //the starting position has to match the css top/right attributes
-    var person = new playerClass(player_count, socket.id, 0, 0);
+    var person = new Player(player_count, socket.id, 0, 0);
     people.push(person);
     player_count++;
     /*
