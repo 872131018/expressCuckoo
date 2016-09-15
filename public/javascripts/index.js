@@ -1,105 +1,90 @@
 $(document).ready(function() {
-/*
-* Instantiate the keyboard controller
-*/
-keyboard = new Keyboard()
-/*
-* All events handled by the global delegator
-*/
-delegator = delegator()
-/*
-* Manage objects when they recieve events
-*/
-manager = objectManager()
-/*
-* Other players live in here
-*/
-people = []
-/*
-* Store the chickens locally
-*/
-chickens = {}
-/*
-* Define the socket to the node server
-*/
-socket = io('http://localhost:3000');
-/*
-* When you join register with the server
-*/
-socket.on('connected', function(data) {
     /*
-    * Socket has some extra chars at front that break jquery
+    * Instantiate the keyboard controller
     */
-    player = new playerClass(data.x, data.y, data.id)
+    keyboard = new Keyboard();
     /*
-    * When a player connects show other players in game
+    * Add the document listeners for the key events
     */
-    var others = data.people
-    for(other in others) {
-        var other = others[other]
+    $(document).on('keydown', function(event) {
+        keyboard.keydown(event.which);
+    });
+    $(document).on('keyup', function(event) {
+        keyboard.keyup(event.which);
+    });
+    /*
+    * Other players live in here
+    */
+    people = {};
+    /*
+    * Store the chickens locally
+    */
+    chickens = {};
+    /*
+    * Define the socket to the node server
+    */
+    socket = io('http://localhost:3000');
+    /*
+    * When you join register with the server
+    */
+    socket.on('connected', function(data) {
+        player = new Player(data.x, data.y, data.id);
         /*
-        * Skip self in list to prevent duplicates
+        * Construct the other players in the game
         */
-        if(other.id == player.id) {
-            continue;
-        }
-        people.push(new playerClass(other.x, other.y, other.id))
-    }
-})
-/*
-* Register other players when someone else joins
-*/
-socket.on('new_connection', function(data) {
-    var other = data.person
-    /*
-    * Init the new players in the game
-    */
-    people.push(new playerClass(other.x, other.y, other.id))
-})
-socket.on('update_position', function(data) {
-    /*
-    * Find the player to move and update their position on screen
-    */
-    for(person in people) {
-        if(people[person].id == data.id) {
-            people[person].update_position({
-                x : data.x,
-                y : data.y
-            })
-            break;
-        }
-    }
-})
-socket.on('disconnected', function(data) {
-    /*
-    * Find player who disconnected
-    */
-    for(person in people) {
-        if(people[person].id == data.id) {
+        var local_scope_people = data.people;
+        for(person in local_scope_people) {
+            var person = local_scope_people[person];
             /*
-            * Remove player from screen
+            * Skip self in list to prevent duplicates
             */
-            $('#'+people[person].id).remove()
-            /*
-            * Remove player from game
-            */
-            people.splice(person, 1)
-            break;
+            if(person.id == player.id) {
+                continue;
+            }
+            person = new Player(person.x, person.y, person.id);
+            people[person.id] = person;
         }
-    }
-})
-socket.on('chickens', function(data) {
-    for(chicken in data) {
-        var chicken = new chickenClass(data[chicken])
-        chickens[chicken.id] = chicken
-    }
-})
-socket.on('update_chickens', function(data) {
-    for(chicken in data) {
-        chicken = data[chicken]
-        chickens[chicken.id].update(chicken)
-    }
-})
+        /*
+        * Construct the chickens in the game
+        */
+        var local_scope_chickens = data.chickens;
+        for(chicken in local_scope_chickens) {
+            var chicken = new Chicken(local_scope_chickens[chicken]);
+            chickens[chicken.id] = chicken;
+        }
+    });
+    /*
+    * Register other players when someone else joins
+    */
+    socket.on('new_player', function(data) {
+        var new_player = data.player;
+        people[new_player.id] = new Player(new_player.x, new_player.y, new_player.id);
+    });
+    /*
+    * Update the a player when a move is made
+    */
+    socket.on('update_position', function(data) {
+        people[data.id].update_position({
+            x : data.x,
+            y : data.y
+        });
+    });
+    /*
+    * Find and remove the player who disconnected
+    */
+    socket.on('player_quit', function(data) {
+        $('#'+data.id).remove();
+        delete people[data.id];
+    });
+    /*
+    * Update the chickens when they move
+    */
+    socket.on('update_chickens', function(data) {
+        for(chicken in data) {
+            chicken = data[chicken]
+            chickens[chicken.id].update(chicken)
+        }
+    });
 /*
 * Start main game loop
 */

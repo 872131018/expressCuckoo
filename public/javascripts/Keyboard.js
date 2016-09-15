@@ -1,5 +1,5 @@
 /*
-* A place to manage the keystrokes
+* A place to manage the keyboard stuff
 */
 function Keyboard() {
 
@@ -10,16 +10,16 @@ function Keyboard() {
 Keyboard.prototype.keydown = function(key) {
     switch(key) {
         case 83: //s
-            $(document).trigger('move', {action:'goDown'})
+            player.goDown();
             break;
         case 87: //w
-            $(document).trigger('move', {action:'goUp'})
+            player.goUp();
             break;
         case 65: //a
-            $(document).trigger('move', {action:'goLeft'})
+            player.goLeft();
             break;
         case 68: //d
-            $(document).trigger('move', {action:'goRight'})
+            player.goRight();
             break;
         default: // all other keys
             //console.log(pressedKey);
@@ -32,16 +32,16 @@ Keyboard.prototype.keydown = function(key) {
 Keyboard.prototype.keyup = function(key) {
     switch(key) {
         case 83: //s
-            $(document).trigger('move', {action:'stopDown'});
+            player.stopDown();
             break;
         case 87: //w
-            $(document).trigger('move', {action:'stopUp'});
+            player.stopUp();
             break;
         case 65: //a
-            $(document).trigger('move', {action:'stopLeft'});
+            player.stopLeft();
             break;
         case 68: //d
-            $(document).trigger('move', {action:'stopRight'});
+            player.stopRight();
             break;
         default: // all other keys
             //console.log(pressedKey);

@@ -27,7 +27,7 @@ var Chicken = require('./bin/Chicken');
 * Server variables to hold players and objects
 */
 var player_count = 0;
-var people = [];
+var people = {};
 var chickens = [];
 /*
 * Build out the chickens in the beginning
@@ -45,38 +45,31 @@ io.on('connection', function (socket) {
     * When a new player connects send back the registered player
     */
     //the starting position has to match the css top/right attributes
-    var person = new Player(player_count, socket.id, 0, 0);
-    people.push(person);
+    var player = new Player(player_count, socket.id, 0, 0);
+    people[player.id] = player;
     player_count++;
     /*
     * Send back player information
     */
     socket.emit('connected', {
-        x : person.x,
-        y : person.y,
-        id : person.id,
-        people : people
+        x : player.x,
+        y : player.y,
+        id : player.id,
+        people : people,
+        chickens : chickens
     });
-    socket.broadcast.emit('new_connection', {
-        person : person
+    socket.broadcast.emit('new_player', {
+        player : player
     });
-    /*
-    * When a player connects show send them the chickens!
-    */
-    socket.emit('chickens', chickens);
     /*
     * Player position update
     */
     socket.on('update_position', function(data) {
         /*
-        * Retrieve player from list
-        */
-        player = people[data.id];
-        /*
         * Updates the player
         */
-        player.x = data.x;
-        player.y = data.y;
+        people[data.id].x = data.x;
+        people[data.id].y = data.y;
         /*
         * Push updates to other players
         */
@@ -87,17 +80,15 @@ io.on('connection', function (socket) {
     */
     socket.on('disconnect', function(data) {
         for(player in people) {
-            if(people[player].socket_id == socket.id) {
+            var player = people[player];
+            if(player.socket_id == socket.id) {
                 /*
-                * Remove player from other screens
+                * Remove player from other screens and game
                 */
-                socket.broadcast.emit('disconnected', {
-                    id : people[player].id
+                socket.broadcast.emit('player_quit', {
+                    id : player.id
                 });
-                /*
-                * Remove player from central game
-                */
-                people.splice(player, 1);
+                delete people[player.id];
                 break;
             }
         }
