@@ -33,7 +33,7 @@ var chickens = [];
 * Build out the chickens in the beginning
 */
 for(i = 0; i < 1; i++) {
-    var chicken = new Chicken(i*20, i*20)
+    var chicken = new Chicken(Math.random()*1000, Math.random()*1000)
     chickens.push(chicken)
 }
 
