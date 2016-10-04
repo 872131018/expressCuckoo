@@ -114,14 +114,6 @@ var interval = setInterval(function () {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-/*
-* Attach socket to main event loop
-*/
-app.use(function(req, res, next){
-  res.io = io; //Not sure if I need this???
-  next();
-});
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
