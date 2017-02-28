@@ -1,27 +1,33 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/player_styles.css')
-    link(rel='stylesheet', href='/stylesheets/chicken_styles.css')
-  body
-    block content
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/player_styles.css')
+        link(rel='stylesheet', href='/stylesheets/chicken_styles.css')
+    body
+        block content
 
-  //- Load external CDN scripts
-  script(
-    src='https://code.jquery.com/jquery-3.1.0.min.js'
-    integrity='sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s='
-    crossorigin='anonymous'
-  )
+    //- Load external assets
+    script(src='/javascripts/assets.js')
+    //- Load internal assets
+    script(src='/javascripts/app.js')
+    script(type='text/jsx').
+      ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById('app'))
 
-  //- Load local scripts
-  script(src="/socket.io/socket.io.js")
-  script(src='/javascripts/Keyboard.js')
-  script(src='/javascripts/loop.js')
-  script(src='/javascripts/Chicken.js')
-  script(src='/javascripts/Player.js')
+    script(
+        src='https://code.jquery.com/jquery-3.1.0.min.js'
+        integrity='sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s='
+        crossorigin='anonymous'
+    )
+
+    //- Load local scripts
+    script(src="/socket.io/socket.io.js")
+    script(src='/javascripts/Keyboard.js')
+    script(src='/javascripts/loop.js')
+    script(src='/javascripts/Chicken.js')
+    script(src='/javascripts/Player.js')
 
 
-  //- Load the document driver last
-  script(src='/javascripts/index.js')
+    //- Load the document driver last
+    script(src='/javascripts/index.js')

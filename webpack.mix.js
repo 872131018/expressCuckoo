@@ -17,5 +17,10 @@ mix.js('resources/assets/js/app.js', 'public/js')
 mix.combine([
    'node_modules/react/dist/react.min.js',
    'node_modules/react-dom/dist/react-dom.min.js',
-   'node_modules/babel-standalone/babel.min.js'
-], 'public/javascripts/react-assets.js');
+   'node_modules/babel-standalone/babel.min.js',
+   'node_modules/socket.io-client/socket.io.min.js'
+], 'public/javascripts/assets.js');
+
+mix.combine([
+   'node_modules/react/dist/react.min.js'
+], 'public/javascripts/app.js');

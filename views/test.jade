@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title= title
+  body
+    div(id='myDiv')
+
+
+  //- Load the document driver last
+  script(src='/javascripts/react-assets.js')
+
+  script(type='text/jsx').
+    ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById('myDiv'))
