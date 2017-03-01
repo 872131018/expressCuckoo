@@ -22,5 +22,6 @@ mix.combine([
 ], 'public/javascripts/assets.js');
 
 mix.combine([
-   'node_modules/react/dist/react.min.js'
+   'resources/javascripts/react/player.react.js',
+   'resources/javascripts/react/app.react.js'
 ], 'public/javascripts/app.js');

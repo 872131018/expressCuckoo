@@ -5,3 +5,8 @@ var Player = React.createClass({
         );
     }
 });
+
+ReactDOM.render(
+    <Player></Player>,
+    document.getElementById('app')
+);

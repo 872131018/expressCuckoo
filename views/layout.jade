@@ -11,9 +11,7 @@ html
     //- Load external assets
     script(src='/javascripts/assets.js')
     //- Load internal assets
-    script(src='/javascripts/app.js')
-    script(type='text/jsx').
-      ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById('app'))
+    script(type='text/babel', src='/javascripts/app.js')
 
     script(
         src='https://code.jquery.com/jquery-3.1.0.min.js'
@@ -22,11 +20,9 @@ html
     )
 
     //- Load local scripts
-    script(src="/socket.io/socket.io.js")
     script(src='/javascripts/Keyboard.js')
     script(src='/javascripts/loop.js')
     script(src='/javascripts/Chicken.js')
-    script(src='/javascripts/Player.js')
 
 
     //- Load the document driver last
