@@ -2,14 +2,12 @@ doctype html
 html
     head
         title= title
-        link(rel='stylesheet', href='/stylesheets/style.css')
-        link(rel='stylesheet', href='/stylesheets/player_styles.css')
-        link(rel='stylesheet', href='/stylesheets/chicken_styles.css')
+        link(rel='stylesheet', href='/stylesheets/styles.css')
     body
         block content
 
     //- Load external assets
-    script(src='/javascripts/assets.js')
+    script(type='text/javascript' src='/javascripts/assets.js')
     //- Load internal assets
     script(type='text/babel', src='/javascripts/app.js')
 
