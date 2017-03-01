@@ -2,5 +2,5 @@
   "/mix.js": "/mix.js",
   "public/javascripts/assets.js": "public/javascripts/assets.js",
   "public/javascripts/app.js": "public/javascripts/app.js",
-  "public/stylesheets/styles.js": "public/stylesheets/styles.js"
+  "public/stylesheets/styles.css": "public/stylesheets/styles.css"
 }

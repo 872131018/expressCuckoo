@@ -21,12 +21,14 @@ mix.combine([
    'node_modules/react/dist/react.min.js',
    'node_modules/react-dom/dist/react-dom.min.js',
    'node_modules/babel-standalone/babel.min.js',
-   'node_modules/socket.io-client/socket.io.min.js'
+   'node_modules/socket.io-client/socket.io.min.js',
+   'node_modules/redux/dist/redux.min.js'
 ], 'public/javascripts/assets.js');
 /*
 * React components
 */
 mix.combine([
+    'resources/javascripts/react/keyboard.react.js',
    'resources/javascripts/react/player.react.js',
    'resources/javascripts/react/app.react.js'
 ], 'public/javascripts/app.js');
@@ -35,4 +37,4 @@ mix.combine([
 */
 mix.combine([
    'resources/stylesheets/player.css',
-], 'public/stylesheets/styles.js');
+], 'public/stylesheets/styles.css');
