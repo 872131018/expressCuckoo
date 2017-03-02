@@ -30,28 +30,12 @@ var Keyboard = React.createClass({
 var Player = React.createClass({
     getInitialState: function() {
         return {
-            id: 0,
-            position: {
-                x: 100,
-                y: 100
-            },
             style: {
                 background: 'url("images/linkSpriteSheet.png") 0px 0px',
             },
             speed: 12,
-            animation_rate: 100,
-            keydown: false
+            animationRate: 100
         }
-    },
-    componentDidMount: function() {
-        // Dispatch our first action to express an intent to change the state
-        store.dispatch({
-          type: 'ADD_PLAYER',
-          player: {
-              name: 'Link',
-              state: this.state
-          }
-        });
     },
     render: function() {
         return (
@@ -65,11 +49,6 @@ var Player = React.createClass({
 });
 
 var App = React.createClass({
-    getInitialState: function(){
-        return {
-
-        }
-    },
     render: function() {
         return (
             <div>
@@ -79,8 +58,3 @@ var App = React.createClass({
         );
     }
 });
-
-ReactDOM.render(
-    <App/>,
-    document.getElementById('app')
-);

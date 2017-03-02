@@ -1,9 +1,4 @@
 var App = React.createClass({
-    getInitialState: function(){
-        return {
-
-        }
-    },
     render: function() {
         return (
             <div>
@@ -13,8 +8,3 @@ var App = React.createClass({
         );
     }
 });
-
-ReactDOM.render(
-    <App/>,
-    document.getElementById('app')
-);

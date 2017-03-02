@@ -20,17 +20,11 @@ mix.js('resources/assets/js/app.js', 'public/js')
 mix.combine([
     'node_modules/react/dist/react.min.js',
     'node_modules/react-dom/dist/react-dom.min.js',
+    'node_modules/redux/dist/redux.min.js',
+    'node_modules/react-redux/dist/react-redux.min.js',
     'node_modules/babel-standalone/babel.min.js',
     'node_modules/socket.io-client/socket.io.min.js',
-    'node_modules/redux/dist/redux.min.js'
 ], 'public/javascripts/assets.js');
-/*
-* Redux reducers
-*/
-mix.combine([
-    'resources/javascripts/redux/player.reducer.js',
-    'resources/javascripts/redux/redux.js'
-], 'public/javascripts/redux.js');
 /*
 * React components
 */
@@ -39,6 +33,16 @@ mix.combine([
     'resources/javascripts/react/player.react.js',
     'resources/javascripts/react/app.react.js'
 ], 'public/javascripts/app.js');
+/*
+* Redux components
+*/
+mix.combine([
+    'resources/javascripts/redux/initialize.redux.js',
+    'resources/javascripts/redux/reducer.js',
+    'resources/javascripts/redux/player.state.js',
+    'resources/javascripts/redux/player.dispatch.js',
+    'resources/javascripts/redux/connector.js',
+], 'public/javascripts/redux.js');
 /*
 * stylesheets
 */
