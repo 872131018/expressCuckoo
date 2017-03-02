@@ -12,29 +12,36 @@ const { mix } = require('laravel-mix');
  */
 /*
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+    .sass('resources/assets/sass/app.scss', 'public/css');
 */
 /*
 * External libraries
 */
 mix.combine([
-   'node_modules/react/dist/react.min.js',
-   'node_modules/react-dom/dist/react-dom.min.js',
-   'node_modules/babel-standalone/babel.min.js',
-   'node_modules/socket.io-client/socket.io.min.js',
-   'node_modules/redux/dist/redux.min.js'
+    'node_modules/react/dist/react.min.js',
+    'node_modules/react-dom/dist/react-dom.min.js',
+    'node_modules/babel-standalone/babel.min.js',
+    'node_modules/socket.io-client/socket.io.min.js',
+    'node_modules/redux/dist/redux.min.js'
 ], 'public/javascripts/assets.js');
+/*
+* Redux reducers
+*/
+mix.combine([
+    'resources/javascripts/redux/player.reducer.js',
+    'resources/javascripts/redux/redux.js'
+], 'public/javascripts/redux.js');
 /*
 * React components
 */
 mix.combine([
     'resources/javascripts/react/keyboard.react.js',
-   'resources/javascripts/react/player.react.js',
-   'resources/javascripts/react/app.react.js'
+    'resources/javascripts/react/player.react.js',
+    'resources/javascripts/react/app.react.js'
 ], 'public/javascripts/app.js');
 /*
 * stylesheets
 */
 mix.combine([
-   'resources/stylesheets/player.css',
+    'resources/stylesheets/player.css',
 ], 'public/stylesheets/styles.css');
