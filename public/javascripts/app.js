@@ -1,5 +1,12 @@
-var Keyboard = React.createClass({
-    componentDidMount: function() {
+class Keyboard extends React.Component {
+    constructor() {
+        super();
+    }
+
+    componentDidMount() {
+        /*
+        * Get the window to listen for keyboard events
+        */
         window.onkeydown = function(event) {
             switch(event.keyCode) {
                 case 87: //w
@@ -27,36 +34,54 @@ var Keyboard = React.createClass({
                     break;
             }
         }
-    },
-    render: function() {
+    }
+
+    render() {
         return (
             <div></div>
         );
     }
-});
+}
 
-var Player = React.createClass({
-    getInitialState: function() {
-        return {
+class Player extends React.Component {
+    constructor() {
+        super();
+        /*
+        * private const properties
+        */
+        this.state = {
             style: {
-                background: 'url("images/linkSpriteSheet.png") 0px 0px',
+                background: 'url("images/linkSpriteSheet.png") 0px 0px'
             },
             animationRate: 100
         }
-    },
-    render: function() {
+    }
+    /*
+    * Render JSX
+    */
+    render() {
         return (
             <img
-                id={ this.state.id }
+                id={ this.props.id }
                 className='player'
-                style={ this.state.style }
+                style={ this.getStyles() }
                 src='/images/000.png'/>
         );
     }
-});
+    /*
+    * Use CSS to set position on the screen
+    */
+    getStyles() {
+        let styles = Object.assign({}, this.state.style, {
+            top: this.props.position.y + 'px',
+            left: this.props.position.x + 'px'
+        });
+        return styles;
+    }
+}
 
-var App = React.createClass({
-    render: function() {
+class App extends React.Component {
+    render() {
         return (
             <div>
                 <Player/>
@@ -64,4 +89,4 @@ var App = React.createClass({
             </div>
         );
     }
-});
+}

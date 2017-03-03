@@ -1,7 +1,8 @@
 let PlayerState = function(state) {
     return {
         id: state.id,
-        position: state.position
+        position: state.position,
+        speed: state.speed
     }
 }
 

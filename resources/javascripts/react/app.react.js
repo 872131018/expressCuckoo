@@ -1,5 +1,5 @@
-var App = React.createClass({
-    render: function() {
+class App extends React.Component {
+    render() {
         return (
             <div>
                 <Player/>
@@ -7,4 +7,4 @@ var App = React.createClass({
             </div>
         );
     }
-});
+}

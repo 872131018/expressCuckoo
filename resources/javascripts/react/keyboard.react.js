@@ -1,5 +1,12 @@
-var Keyboard = React.createClass({
-    componentDidMount: function() {
+class Keyboard extends React.Component {
+    constructor() {
+        super();
+    }
+
+    componentDidMount() {
+        /*
+        * Get the window to listen for keyboard events
+        */
         window.onkeydown = function(event) {
             switch(event.keyCode) {
                 case 87: //w
@@ -27,10 +34,11 @@ var Keyboard = React.createClass({
                     break;
             }
         }
-    },
-    render: function() {
+    }
+
+    render() {
         return (
             <div></div>
         );
     }
-});
+}

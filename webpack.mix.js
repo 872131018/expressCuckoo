@@ -37,10 +37,8 @@ mix.combine([
 * Redux components
 */
 mix.combine([
-    'resources/javascripts/redux/initialState.redux.js',
     'resources/javascripts/redux/reducer.js',
     'resources/javascripts/redux/player.state.js',
-    'resources/javascripts/redux/player.dispatch.js',
     'resources/javascripts/redux/player.connect.js',
 ], 'public/javascripts/redux.js');
 /*
