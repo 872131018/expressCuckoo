@@ -3,16 +3,24 @@ var Keyboard = React.createClass({
         window.onkeydown = function(event) {
             switch(event.keyCode) {
                 case 87: //w
-                    this.goUp();
+                    store.dispatch({
+                        type: 'GO_UP'
+                    });
                     break;
                 case 65: //a
-                    this.goLeft();
+                    store.dispatch({
+                        type: 'GO_LEFT'
+                    });
                     break;
                 case 83: //s
-                    this.goDown();
+                    store.dispatch({
+                        type: 'GO_DOWN'
+                    });
                     break;
                 case 68: //d
-                    this.goRight();
+                    store.dispatch({
+                        type: 'GO_RIGHT'
+                    });
                     break;
                 default: // all other keys
                     //console.log(pressedKey);

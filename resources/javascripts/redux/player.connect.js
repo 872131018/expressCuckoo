@@ -4,3 +4,5 @@ let PlayerState = function(state) {
         position: state.position
     }
 }
+
+Player = ReactRedux.connect(PlayerState)(Player)

@@ -4,7 +4,6 @@ var Player = React.createClass({
             style: {
                 background: 'url("images/linkSpriteSheet.png") 0px 0px',
             },
-            speed: 12,
             animationRate: 100
         }
     },
