@@ -1,4 +1,4 @@
-class Player extends React.Component {
+class Cuckoo extends React.Component {
     constructor() {
         super();
         /*
@@ -6,7 +6,7 @@ class Player extends React.Component {
         */
         this.state = {
             style: {
-                background: 'url("images/linkSpriteSheet.png")'
+                background: 'url("images/chickenSpriteSheet.png")'
             }
         }
     }
@@ -17,7 +17,7 @@ class Player extends React.Component {
         return (
             <img
                 id={ this.props.id }
-                className='player'
+                className='cuckoo'
                 style={ this.getStyles() }
                 src='/images/000.png'/>
         );

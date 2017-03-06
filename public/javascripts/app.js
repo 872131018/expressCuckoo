@@ -5,7 +5,7 @@ class Keyboard extends React.Component {
 
     componentDidMount() {
         /*
-        * Get the window to listen for keyboard events
+        * Get the window to listen for keydown
         */
         window.onkeydown = throttle((event) => {
             switch(event.keyCode) {
@@ -25,6 +25,27 @@ class Keyboard extends React.Component {
                     break;
             }
         });
+        /*
+        * Get the window to listen for keyup events
+        */
+        window.onkeyup = (event) => {
+            switch(event.keyCode) {
+                case 87: //w
+                    store.dispatch({ type: 'STOP_UP' });
+                    break;
+                case 65: //a
+                    store.dispatch({ type: 'STOP_LEFT' });
+                    break;
+                case 83: //s
+                    store.dispatch({ type: 'STOP_DOWN' });
+                    break;
+                case 68: //d
+                    store.dispatch({ type: 'STOP_RIGHT' });
+                    break;
+                default: // all other keys
+                    break;
+            }
+        }
     }
 
     render() {
@@ -42,9 +63,8 @@ class Player extends React.Component {
         */
         this.state = {
             style: {
-                background: 'url("images/linkSpriteSheet.png") 0px 0px'
-            },
-            animationRate: 100
+                background: 'url("images/linkSpriteSheet.png")'
+            }
         }
     }
     /*
@@ -63,10 +83,20 @@ class Player extends React.Component {
     * Use CSS to set position on the screen
     */
     getStyles() {
-        let styles = Object.assign({}, this.state.style, {
+        /*
+        * Set back location on the spritesheet
+        */
+        let spriteX = this.props.spritePosition.x + 'px';
+        let spriteY = this.props.spritePosition.y + 'px';
+        /*
+        * Create the styles object
+        */
+        let styles = {
+            background: this.state.style.background +' '+ spriteX +' '+ spriteY,
             top: this.props.position.y + 'px',
             left: this.props.position.x + 'px'
-        });
+        };
+
         return styles;
     }
 }
