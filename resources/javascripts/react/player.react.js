@@ -19,7 +19,7 @@ class Player extends React.Component {
                 id={ this.props.id }
                 className='player'
                 style={ this.getStyles() }
-                src='/images/000.png'/>
+                src='/images/0.png'/>
         );
     }
     /*
