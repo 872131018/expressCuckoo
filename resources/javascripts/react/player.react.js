@@ -35,7 +35,8 @@ class Player extends React.Component {
         * Create the styles object
         */
         let styles = {
-            background: this.state.style.background +' '+ spriteX +' '+ spriteY,
+            backgroundImage: this.state.style.background,
+            backgroundPosition: spriteX + ' ' + spriteY,
             top: this.props.position.y + 'px',
             left: this.props.position.x + 'px'
         };

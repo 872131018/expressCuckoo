@@ -9,8 +9,8 @@ let playerInitialState =  function() {
             y: 100
         },
         spritePosition: {
-            x: '0',
-            y: '0'
+            x: 0,
+            y: 0
         },
         speed: 12
     }
@@ -19,18 +19,18 @@ let playerInitialState =  function() {
 * Set mutable player properties
 */
 let playerMutableState = function(state) {
+    let player = state.player;
     return {
-        id: state.id,
-        position: state.position,
-        spritePosition: state.spritePosition,
-        speed: state.speed
+        id: player.id,
+        position: player.position,
+        spritePosition: player.spritePosition,
+        speed: player.speed
     }
 }
 /*
 * Player reducer defines player actions
 */
-let playerReducer = function(player = playerInitialState(), action) {
-    //console.log(player)
+function playerReducer(player = playerInitialState(), action) {
     switch(action.type) {
         case 'GO_UP':
             player.position.y -= player.speed;
@@ -66,10 +66,7 @@ let playerReducer = function(player = playerInitialState(), action) {
     /*
     * Update animation when not stopping
     */
-    if(action.type == 'STOP_UP' ||
-        action.type == 'STOP_LEFT' ||
-        action.type == 'STOP_DOWN' ||
-        action.type == 'STOP_RIGHT') {
+    if(window.keyPressed == false) {
             player.spritePosition.x = 0;
     } else {
         player.spritePosition.x -= 90;
@@ -82,11 +79,3 @@ let playerReducer = function(player = playerInitialState(), action) {
     */
     return JSON.parse(JSON.stringify(player));
 }
-/*
-* Create a store and pass the reducer
-*/
-var store = Redux.createStore(playerReducer);
-/*
-* Connect smart component to dumb component with react-redux
-*/
-Player = ReactRedux.connect(playerMutableState)(Player)

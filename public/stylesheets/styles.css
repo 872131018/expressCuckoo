@@ -10,3 +10,11 @@
 	top: 0px;
 	left: 0px;
 }
+
+.cuckoo {
+	/*set the chicken cell dimensions*/
+	height: 43px;
+	width: 43px;
+	/*ensure the chicken can move with positioning*/
+	position: absolute;
+}

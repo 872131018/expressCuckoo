@@ -28,7 +28,7 @@ class Keyboard extends React.Component {
         /*
         * Get the window to listen for keyup events
         */
-        window.onkeyup = (event) => {
+        window.onkeyup = throttle((event) => {
             switch(event.keyCode) {
                 case 87: //w
                     store.dispatch({ type: 'STOP_UP' });
@@ -45,7 +45,7 @@ class Keyboard extends React.Component {
                 default: // all other keys
                     break;
             }
-        }
+        });
     }
 
     render() {
@@ -92,7 +92,8 @@ class Player extends React.Component {
         * Create the styles object
         */
         let styles = {
-            background: this.state.style.background +' '+ spriteX +' '+ spriteY,
+            backgroundImage: this.state.style.background,
+            backgroundPosition: spriteX + ' ' + spriteY,
             top: this.props.position.y + 'px',
             left: this.props.position.x + 'px'
         };
@@ -101,15 +102,63 @@ class Player extends React.Component {
     }
 }
 
+class Cuckoo extends React.Component {
+    constructor() {
+        super();
+        /*
+        * private const properties
+        */
+        this.state = {
+            style: {
+                background: 'url("images/chickenSpriteSheet.png")'
+            }
+        }
+    }
+    /*
+    * Render JSX
+    */
+    render() {
+        return (
+            <img
+                id={ this.props.id }
+                className='cuckoo'
+                style={ this.getStyles() }
+                src='/images/000.png'/>
+        );
+    }
+    /*
+    * Use CSS to set position on the screen
+    */
+    getStyles() {
+        /*
+        * Set back location on the spritesheet
+        */
+        let spriteX = this.props.spritePosition.x + 'px';
+        let spriteY = this.props.spritePosition.y + 'px';
+        /*
+        * Create the styles object
+        */
+        let styles = {
+            backgroundImage: this.state.style.background,
+            backgroundPosition: spriteX + ' ' + spriteY,
+            top: this.props.position.y + 'px',
+            left: this.props.position.x + 'px'
+        };
+        
+        return styles;
+    }
+}
+
 class App extends React.Component {
     constructor() {
         super();
     }
-    
+
     render() {
         return (
             <div>
                 <Player/>
+                <Cuckoo/>
                 <Keyboard/>
             </div>
         );

@@ -31,17 +31,21 @@ mix.combine([
 mix.combine([
     'resources/javascripts/react/keyboard.react.js',
     'resources/javascripts/react/player.react.js',
+    'resources/javascripts/react/cuckoo.react.js',
     'resources/javascripts/react/app.react.js'
 ], 'public/javascripts/app.js');
 /*
 * Redux components
 */
 mix.combine([
-    'resources/javascripts/redux/player.redux.js'
+    'resources/javascripts/redux/player.redux.js',
+    'resources/javascripts/redux/cuckoo.redux.js',
+    'resources/javascripts/redux/root.redux.js',
 ], 'public/javascripts/redux.js');
 /*
 * stylesheets
 */
 mix.combine([
     'resources/stylesheets/player.css',
+    'resources/stylesheets/cuckoo.css',
 ], 'public/stylesheets/styles.css');

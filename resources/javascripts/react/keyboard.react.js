@@ -28,7 +28,7 @@ class Keyboard extends React.Component {
         /*
         * Get the window to listen for keyup events
         */
-        window.onkeyup = (event) => {
+        window.onkeyup = throttle((event) => {
             switch(event.keyCode) {
                 case 87: //w
                     store.dispatch({ type: 'STOP_UP' });
@@ -45,7 +45,7 @@ class Keyboard extends React.Component {
                 default: // all other keys
                     break;
             }
-        }
+        });
     }
 
     render() {
