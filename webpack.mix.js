@@ -43,6 +43,13 @@ mix.combine([
     'resources/javascripts/redux/root.redux.js',
 ], 'public/javascripts/redux.js');
 /*
+* Addition scripts
+*/
+mix.combine([
+    'resources/javascripts/throttle.js',
+    'resources/javascripts/socket.js',
+], 'public/javascripts/index.js');
+/*
 * stylesheets
 */
 mix.combine([

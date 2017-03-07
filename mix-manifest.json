@@ -3,5 +3,6 @@
   "public/javascripts/vendor.js": "public/javascripts/vendor.js",
   "public/javascripts/app.js": "public/javascripts/app.js",
   "public/javascripts/redux.js": "public/javascripts/redux.js",
+  "public/javascripts/index.js": "public/javascripts/index.js",
   "public/stylesheets/styles.css": "public/stylesheets/styles.css"
 }
