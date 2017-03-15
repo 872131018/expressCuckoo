@@ -76,7 +76,7 @@ class Player extends React.Component {
                 id={ this.props.id }
                 className='player'
                 style={ this.getStyles() }
-                src='/images/000.png'/>
+                src='/images/0.png'/>
         );
     }
     /*
@@ -123,7 +123,7 @@ class Cuckoo extends React.Component {
                 id={ this.props.id }
                 className='cuckoo'
                 style={ this.getStyles() }
-                src='/images/000.png'/>
+                src='/images/0.png'/>
         );
     }
     /*
@@ -144,7 +144,7 @@ class Cuckoo extends React.Component {
             top: this.props.position.y + 'px',
             left: this.props.position.x + 'px'
         };
-        
+
         return styles;
     }
 }
